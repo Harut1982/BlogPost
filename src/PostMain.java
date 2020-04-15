@@ -10,37 +10,35 @@ public class PostMain implements PostStorage {
 
     public static void main(String[] args) {
 
-        outer:
-        try {
-            boolean isRun = true;
-            while (isRun) {
-                printCommands();
-                int commands = Integer.parseInt(scanner.nextLine());
-                switch (commands) {
-                    case EXIT:
-                        isRun = false;
-                        break;
-                    case ADD_POST:
-                        addPost();
-                        break;
-                    case SEARCH_POST:
-                        searchPost();
-                        break;
-                    case POST_BY_CATEGORY:
-                        postByCategory();
-                        break;
-                    case ALL_POSTS:
-                        postStorageImpl.printAllPosts();
-                        break;
-                    default:
-                        System.out.println("Wrong command!");
-                }
+
+        boolean isRun = true;
+        while (isRun) {
+            printCommands();
+            int commands;
+            try {
+                commands = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                commands = -1;
             }
-
-
-        } catch (NumberFormatException e) {
-            System.out.println("Please input number " + e);
-
+            switch (commands) {
+                case EXIT:
+                    isRun = false;
+                    break;
+                case ADD_POST:
+                    addPost();
+                    break;
+                case SEARCH_POST:
+                    searchPost();
+                    break;
+                case POST_BY_CATEGORY:
+                    postByCategory();
+                    break;
+                case ALL_POSTS:
+                    postStorageImpl.printAllPosts();
+                    break;
+                default:
+                    System.out.println("Wrong command!");
+            }
         }
 
     }
@@ -76,11 +74,12 @@ public class PostMain implements PostStorage {
 
 
     private static void searchPost() {
-        if (postStorageImpl.isEmpty())
-        { System.out.println("Please add post first");}
+        if (postStorageImpl.isEmpty()) {
+            System.out.println("Please add post first");
+        }
         System.out.println("Please input Post title or text for search");
         try {
-            outer:
+
             System.out.println("press:1-search by title  pres:-2 for search by keyword pres:3-to go back ");
 
             boolean isRun = true;
